@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from db import GroceryDB
 
 
@@ -17,7 +17,9 @@ def all_grocery():
 @app.route('/grocery/add', methods=['POST'])
 def add_grocery():
     """Add a grocery"""
-    pass
+    data = request.get_json()
+    db.add(data)
+    return {"status": "successfully!"}
 
 
 # view all grocery by type
