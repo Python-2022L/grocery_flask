@@ -4,15 +4,22 @@ from db import GroceryDB
 
 app = Flask(__name__)
 db = GroceryDB()
-url = 'https://127.0.0.1:5000'
+
 
 # view all grocery
 @app.route('/grocery')
 def all_grocery():
     """Get all grocery"""
+    data = db.all()
+    # html view
+    html = "<h1>View all grocery</h1>"
+    html += "<table>"
+    html += "<tr><th>Name</th><th>Quantity</th><th>Price</th><th>Type</th></tr>"
+    for item in data:
+        html += f"<tr><td>{item['name']}</td><td>{item['quantity']}</td><td>{item['price']}</td><td>{item['type']}</td></tr>"
+    html += "</table>"
+    return html
    
-
-
 # view add grocery
 @app.route('/grocery/add', methods=['POST'])
 def add_grocery():
